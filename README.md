@@ -9,6 +9,7 @@ The Music Player Application is a simple Python program with a Tkinter-based use
 
 - Python 3.10
 - pygame library (`pip install pygame`)
+- tkinter library (`pip install tk`)
 
 ## Installation
 
