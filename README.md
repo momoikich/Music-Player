@@ -74,4 +74,4 @@ This project uses Flask for web development and Pygame for audio playback.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](MIT).
