@@ -55,7 +55,7 @@ The Music Player Dashboard is a web-based application that allows users to manag
 |   |-- index.html
 ```
 
-- `app.py`: Main Python script containing the Flask application.
+- `music_player.py`: Main Python script containing the Flask application.
 - `templates/`: Folder containing HTML templates.
 
 ## Customization
