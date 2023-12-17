@@ -1,63 +1,90 @@
+<!-- templates/index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player Dashboard</title>
+    <title>MelodyHub Music Player</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Music Player Dashboard</h1>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">
+    <img src="{{ url_for('static', filename='img/melody-hub.jpeg') }}" alt="MelodyHub Logo" height="30">
+    MelodyHub
+  </a>
+</nav>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Music Player Dashboard</h1>
 
     <form action="{{ url_for('load_songs') }}" method="post">
-        <label for="folder_path">Folder Path:</label>
-        <input type="text" id="folder_path" name="folder_path" required>
-        <button type="submit">Load Songs</button>
+        <div class="form-group">
+            <label for="folder_path">Folder Path:</label>
+            <input type="text" class="form-control" id="folder_path" name="folder_path" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Load Songs</button>
     </form>
 
     {% if player.playlist %}
-        <h2>Song List</h2>
+        <h2 class="mt-5">Song List</h2>
         <ul>
             {% for song in player.playlist %}
-                <li>{{ song }}</li>
+                <li class="{% if loop.index - 1 == player.current_song_index %}active{% endif %}">
+                    {{ song.split('\\')[-1] }}
+                </li>
             {% endfor %}
         </ul>
 
-        <h2>Control Buttons</h2>
-        <button onclick="play()">Play</button>
-        <button onclick="pause()">Pause</button>
-        <button onclick="resume()">Resume</button>
-        <button onclick="stop()">Stop</button>
-        <button onclick="nextSong()">Next Song</button>
+        <h2 class="mt-5">Control Buttons</h2>
+        <button class="btn btn-success" onclick="play()">Play</button>
+        <button class="btn btn-warning" onclick="pause()">Pause</button>
+        <button class="btn btn-info" onclick="resume()">Resume</button>
+        <button class="btn btn-danger" onclick="stop()">Stop</button>
+        <button class="btn btn-primary" onclick="nextSong()">Next Song</button>
 
-        <h2>Volume Control</h2>
+        <h2 class="mt-5">Volume Control</h2>
         <input type="range" id="volume" name="volume" min="0" max="1" step="0.1" value="{{ player.volume }}" oninput="setVolume()">
     {% endif %}
+</div>
 
-    <script>
-        function play() {
-            fetch('/play');
-        }
+<!-- Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-        function pause() {
-            fetch('/pause');
-        }
+<script>
+    function play() {
+        fetch('/play');
+    }
 
-        function resume() {
-            fetch('/resume');
-        }
+    function pause() {
+        fetch('/pause');
+    }
 
-        function stop() {
-            fetch('/stop');
-        }
+    function resume() {
+        fetch('/resume');
+    }
 
-        function nextSong() {
-            fetch('/next_song');
-        }
+    function stop() {
+        fetch('/stop');
+    }
 
-        function setVolume() {
-            const volume = document.getElementById('volume').value;
-            fetch(`/set_volume/${volume}`);
-        }
-    </script>
+    function nextSong() {
+        fetch('/next_song');
+    }
+
+    function setVolume() {
+        const volume = document.getElementById('volume').value;
+        fetch(`/set_volume/${volume}`);
+    }
+</script>
+
 </body>
 </html>
+
