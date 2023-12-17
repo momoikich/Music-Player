@@ -1,62 +1,71 @@
 
-# Music Player Application
 
-## Description
+# Music Player Dashboard
 
-The Music Player Application is a simple Python program with a Tkinter-based user interface that allows users to play, pause, resume, stop, and navigate through MP3 files in a specified folder. Additionally, the application features volume control for adjusting the playback volume.
+## Overview
 
-## Requirements
+The Music Player Dashboard is a web-based application that allows users to manage and play their music collection. It provides a user-friendly interface to load songs, control playback, adjust volume, and navigate through the playlist.
 
-- Python 3.10
-- pygame library (`pip install pygame`)
-- tkinter library (`pip install tk`)
+## Features
+
+- Load songs from a specified folder.
+- Play, pause, resume, stop, and skip to the next song.
+- Volume control with a slider.
+- Real-time updates on the playlist.
+
+## Prerequisites
+
+- Python 3.12
+- Flask
+- Pygame
 
 ## Installation
 
-1. Clone the repository or download the source code.
-2. Install the required dependencies using the following command:
+1. Clone the repository:
 
    ```bash
-   pip install -r requirements.txt
+   git clone https://github.com/momoikich/Music-Player.git
+   cd Music-Player
+   ```
+
+2. Install the required dependencies:
+
+   ```bash
+   pip install Flask pygame
    ```
 
 ## Usage
 
-1. Run the application by executing the following command:
+1. Run the application:
 
    ```bash
    python music_player.py
    ```
 
-2. The application window will appear with the following components:
+2. Open your web browser and go to [http://127.0.0.1:5000/](http://127.0.0.1:5000/).
 
-   - Entry field: Enter the folder path containing MP3 files.
-   - Browse button: Open a dialog to select the folder interactively.
-   - Volume slider: Adjust the volume level (0.0 to 1.0).
-   - Control buttons:
-     - Play: Play the selected song.
-     - Pause: Pause the playback.
-     - Resume: Resume playback after pausing.
-     - Stop: Stop the playback.
-     - Next Song: Move to the next song in the playlist.
+3. Use the provided controls to load songs, play, pause, resume, stop, and navigate the playlist.
 
-3. Enter the folder path manually or use the Browse button to select a folder containing MP3 files.
+## Folder Structure
 
-4. Use the volume slider to adjust the playback volume.
+```plaintext
+/
+|-- music_player.py
+|-- templates/
+|   |-- index.html
+```
 
-5. Control the music playback using the provided buttons.
+- `app.py`: Main Python script containing the Flask application.
+- `templates/`: Folder containing HTML templates.
 
-## Notes
+## Customization
 
-- Make sure to enter the correct folder path containing MP3 files.
-- Adjust the volume before playing a song for effective volume control.
+Feel free to customize the application further to suit your needs. You can modify the HTML templates, add additional features, or enhance the user interface.
 
 ## Acknowledgments
 
-This application is built using Python and Tkinter, with audio playback handled by the pygame library.
+This project uses Flask for web development and Pygame for audio playback.
 
-Feel free to customize the application or provide feedback for improvements!
-```
+## License
 
-Replace the placeholders such as `music_player.py` with the actual filenames or details related to your application. Additionally, you can add or modify sections based on your specific requirements.
- 
+This project is licensed under the [MIT License](LICENSE).
