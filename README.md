@@ -53,10 +53,16 @@ The Music Player Dashboard is a web-based application that allows users to manag
 |-- music_player.py
 |-- templates/
 |   |-- index.html
+|-- static/
+|   |-- css
+|       |-- style.css
+|   |-- img
+|       |-- melody-hub.jpeg
 ```
 
 - `music_player.py`: Main Python script containing the Flask application.
 - `templates/`: Folder containing HTML templates.
+- `static/`: Folder containing css file styles and images.
 
 ## Customization
 
