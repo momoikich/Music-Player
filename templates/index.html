@@ -32,24 +32,33 @@
     </form>
 
     {% if player.playlist %}
-        <h2 class="mt-5">Song List</h2>
-        <ul>
-            {% for song in player.playlist %}
-                <li class="{% if loop.index - 1 == player.current_song_index %}active{% endif %}">
-                    {{ song.split('\\')[-1] }}
-                </li>
-            {% endfor %}
-        </ul>
+    <div class="container-songs">
+        <div class="left-panel">
+            <h2>Song List</h2>
+            <ul>
+                {% for song in player.playlist %}
+                    <li>{{ song.split('\\')[-1] }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="center-panel">
+            <h1>Music Player Dashboard</h1>
+            <div id="current-song">
+                <!-- Display current song or player status here -->
+            </div>
+        </div>
+        <div class="right-panel">
+            <h2>Control Buttons</h2>
+            <button onclick="play()">Play</button>
+            <button onclick="pause()">Pause</button>
+            <button onclick="resume()">Resume</button>
+            <button onclick="stop()">Stop</button>
+            <button onclick="nextSong()">Next Song</button>
 
-        <h2 class="mt-5">Control Buttons</h2>
-        <button class="btn btn-success" onclick="play()">Play</button>
-        <button class="btn btn-warning" onclick="pause()">Pause</button>
-        <button class="btn btn-info" onclick="resume()">Resume</button>
-        <button class="btn btn-danger" onclick="stop()">Stop</button>
-        <button class="btn btn-primary" onclick="nextSong()">Next Song</button>
-
-        <h2 class="mt-5">Volume Control</h2>
-        <input type="range" id="volume" name="volume" min="0" max="1" step="0.1" value="{{ player.volume }}" oninput="setVolume()">
+            <h2>Volume Control</h2>
+            <input type="range" id="volume" name="volume" min="0" max="1" step="0.1" value="{{ player.volume }}" oninput="setVolume()">
+        </div>
+    </div>
     {% endif %}
 </div>
 

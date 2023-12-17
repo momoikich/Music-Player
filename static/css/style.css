@@ -27,3 +27,34 @@ ul li {
 }
 
 
+.container-songs {
+    display: flex;
+}
+
+.left-panel, .right-panel {
+    width: 20%;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.center-panel {
+    flex-grow: 1;
+    padding: 20px;
+    text-align: center;
+    background-color: #e0e0e0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+button {
+    margin: 5px;
+}
+
+
