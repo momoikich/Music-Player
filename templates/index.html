@@ -44,7 +44,11 @@
         <div class="center-panel">
             <h1>Music Player Dashboard</h1>
             <div id="current-song">
-                <!-- Display current song or player status here -->
+                <p id="song-info">Current Song: </p>
+                <div id="progress-bar-container">
+                    <div id="progress-bar"></div>
+                </div>
+                <p id="time-info">Time: 0:00 / Duration</p>
             </div>
         </div>
         <div class="right-panel">
@@ -71,14 +75,36 @@
     function play() {
         fetch('/play');
     }
-
+    let pausedData = null;
     function pause() {
-        fetch('/pause');
+        fetch('/pause')
+            .then(response => response.json())
+            .then(data => {
+                pausedData = data;
+            });
     }
 
     function resume() {
-        fetch('/resume');
+        fetch('/resume')
+            .then(response => response.json())
+            .then(data => {
+                if (pausedData) {
+                    // Use the stored progress and duration values when resuming
+                    data.progress = pausedData.progress;
+                    data.duration = pausedData.duration;
+                    pausedData = null; // Clear stored data
+                }
+
+                const currentTime = formatTime(data.progress);
+                const duration = formatTime(data.duration);
+                const timeDisplay = document.getElementById('time-info');
+                const progressBarInner = document.getElementById('progress-bar');
+
+                timeDisplay.textContent = `Time ${currentTime}/${duration}`;
+                progressBarInner.style.width = Math.round((data.progress / data.duration) * 100) + '%';
+            });
     }
+
 
     function stop() {
         fetch('/stop');
@@ -92,6 +118,29 @@
         const volume = document.getElementById('volume').value;
         fetch(`/set_volume/${volume}`);
     }
+    function updatePlayerStatus() {
+        fetch('/progress')
+            .then(response => response.json())
+            .then(data => {
+                const currentTime = formatTime(data.progress);
+                const duration = formatTime(data.duration);
+                const timeDisplay = document.getElementById('time-info');
+                const progressBarInner = document.getElementById('progress-bar');
+
+                timeDisplay.textContent = `Time ${currentTime}/${duration}`;
+                progressBarInner.style.width = Math.round((data.progress / data.duration) * 100) + '%';
+            });
+    }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.round(seconds) % 60;
+            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
+
+        setInterval(updatePlayerStatus, 1000);
+
+
 </script>
 
 </body>

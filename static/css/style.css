@@ -56,5 +56,22 @@ li {
 button {
     margin: 5px;
 }
+/* Add styles for the progress bar */
+#progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #ddd;
+    margin: 10px 0;
+}
+
+#progress-bar {
+    height: 100%;
+    background-color: #4caf50;
+}
+
+#time-info {
+    margin-top: 10px;
+}
+
 
 
