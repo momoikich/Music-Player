@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player Dashboard</title>
+</head>
+<body>
+    <h1>Music Player Dashboard</h1>
+
+    <form action="{{ url_for('load_songs') }}" method="post">
+        <label for="folder_path">Folder Path:</label>
+        <input type="text" id="folder_path" name="folder_path" required>
+        <button type="submit">Load Songs</button>
+    </form>
+
+    {% if player.playlist %}
+        <h2>Song List</h2>
+        <ul>
+            {% for song in player.playlist %}
+                <li>{{ song }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Control Buttons</h2>
+        <button onclick="play()">Play</button>
+        <button onclick="pause()">Pause</button>
+        <button onclick="resume()">Resume</button>
+        <button onclick="stop()">Stop</button>
+        <button onclick="nextSong()">Next Song</button>
+
+        <h2>Volume Control</h2>
+        <input type="range" id="volume" name="volume" min="0" max="1" step="0.1" value="{{ player.volume }}" oninput="setVolume()">
+    {% endif %}
+
+    <script>
+        function play() {
+            fetch('/play');
+        }
+
+        function pause() {
+            fetch('/pause');
+        }
+
+        function resume() {
+            fetch('/resume');
+        }
+
+        function stop() {
+            fetch('/stop');
+        }
+
+        function nextSong() {
+            fetch('/next_song');
+        }
+
+        function setVolume() {
+            const volume = document.getElementById('volume').value;
+            fetch(`/set_volume/${volume}`);
+        }
+    </script>
+</body>
+</html>
