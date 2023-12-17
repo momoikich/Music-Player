@@ -18,6 +18,7 @@ The Music Player Dashboard is a web-based application that allows users to manag
 - Python 3.12
 - Flask
 - Pygame
+- eyed3
 
 ## Installation
 
@@ -31,7 +32,7 @@ The Music Player Dashboard is a web-based application that allows users to manag
 2. Install the required dependencies:
 
    ```bash
-   pip install Flask pygame
+   pip install Flask pygame eyed3
    ```
 
 ## Usage
