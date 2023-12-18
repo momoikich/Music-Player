@@ -44,7 +44,7 @@
         <div class="center-panel">
             <h1>Music Player Dashboard</h1>
             <div id="current-song">
-                <p id="song-info">Current Song: </p>
+                <img id="albumArt" class="album-art" src="" alt="Album Art">
                 <div id="progress-bar-container">
                     <div id="progress-bar"></div>
                 </div>
@@ -112,6 +112,7 @@
 
     function nextSong() {
         fetch('/next_song');
+        updateAlbumArt();
     }
 
     function setVolume() {
@@ -137,6 +138,19 @@
             const remainingSeconds = Math.round(seconds) % 60;
             return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
         }
+
+    function updateAlbumArt() {
+        fetch('/album_art')
+            .then(response => response.json())
+            .then(data => {
+                const albumArt = document.getElementById('albumArt');
+                albumArt.src = 'data:image/jpeg;base64,' + data.image;
+            })
+            .catch(error => console.error('Error fetching album art:', error));
+    }
+
+    // Call the function when the page loads or when you change the music
+    document.addEventListener('DOMContentLoaded', updateAlbumArt);    
 
         setInterval(updatePlayerStatus, 1000);
 

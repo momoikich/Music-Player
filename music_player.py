@@ -2,6 +2,9 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import pygame
 import eyed3
+from io import BytesIO
+from PIL import Image
+import base64
 
 app = Flask(__name__)
 
@@ -62,6 +65,22 @@ class MusicPlayer:
             return pygame.mixer.music.get_pos() / 1000
         return 0
 
+    def get_album_art(self):
+        if self.playlist:
+            audiofile = eyed3.load(self.playlist[self.current_song_index])
+            if audiofile and audiofile.tag.frame_set.get(b'APIC'):
+                # Get the first album art
+                album_art_frame = audiofile.tag.frame_set[b'APIC'][0]
+                image_data = album_art_frame.image_data
+                image = Image.open(BytesIO(image_data))
+                
+                # Convert the image to base64 for displaying in HTML
+                buffered = BytesIO()
+                image.save(buffered, format="PNG")
+                return base64.b64encode(buffered.getvalue()).decode("utf-8")
+
+        return None   
+
 player = MusicPlayer()
 
 @app.route('/')
@@ -120,6 +139,12 @@ def progress():
 
     # Return the progress and duration as JSON
     return jsonify(progress=current_progress, duration=total_duration)
+
+
+@app.route('/album_art')
+def get_album_art():
+    album_art_data = player.get_album_art()
+    return jsonify({'image': album_art_data})   
 
 
 if __name__ == '__main__':
